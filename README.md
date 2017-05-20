@@ -12,4 +12,4 @@
 
 5. Before running main file(src\sample\main.java) Update JRE configuration to 1.8 version using edit configuration.
 
-6. If you find any issue at any step add it "https://github.com/vikrantthakur14/PROJECT/issues" with error screenshot. Thanks
+6. If you find any issue at any step add it "https://github.com/harshkb/PROJECT/issues" with error screenshot. Thanks
