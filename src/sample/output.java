@@ -47,11 +47,13 @@ public   class output {
 
         StringArrayVector nameVector=null;
         StringArrayVector unitVector =null;
+        StringArrayVector colVector = null;
         try {
             engine.put("xyz",ReplacePath);
             df = (ListVector) engine.eval(new FileReader("Rscript.R"));
             nameVector=(StringArrayVector)engine.eval("parnames");
             unitVector=(StringArrayVector)engine.eval("units");
+            colVector=(StringArrayVector)engine.eval("mycols");
 
 
         } catch (ScriptException e) {
@@ -70,12 +72,19 @@ public   class output {
 
         VBox vbox = new VBox();
 
-        String temp2 =  new String(nameVector.getElementAsString(0));
+
         for ( int i=0; i<nameVector.length();i++ ) {
 
-            Button button = new Button(nameVector.getElementAsString(i)+"."+unitVector.getElementAsString(i));
-            String temp =new String(nameVector.getElementAsString(i));
-            String temp3=new String(unitVector.getElementAsString(i));
+            System.out.println(nameVector.getElementAsString(i)+"."+unitVector.getElementAsString(i));
+           // String temp3=(unitVector.getElementAsString(i)) ;
+            String temp4=(colVector.getElementAsString(i));
+           // if(temp3.isEmpty())
+             //   temp3=" ";
+            Button button = new Button((colVector.getElementAsString(i)));
+            String temp2 =  new String(nameVector.getElementAsString(0));
+            String temp =nameVector.getElementAsString(i);
+
+
             hbox.getChildren().add(button);
             hbox.setHgrow(button, Priority.ALWAYS);
             button.setMaxWidth(Double.MAX_VALUE);
@@ -83,7 +92,7 @@ public   class output {
 
                 button.setOnAction(e -> {
                     try {
-                        setValue(temp,temp2,temp3);
+                        setValue(temp,temp2,temp4);
                     } catch (ScriptException e1) {
                         e1.printStackTrace();
                     }
@@ -115,7 +124,8 @@ public   class output {
     }
 
     public static void setValue(String  parameter,String depth,String unit) throws ScriptException {
-        yValue.setText(parameter+"."+unit);
+
+        yValue.setText(unit);
        // yValue.setText(parameter.getName() + "." + parameter.getUnit());
         //String temp = new String(parameter.getName() + "." + parameter.getUnit());
         String formula = String.format("myformula=formula(paste('%1$s','~','%2$s'))", parameter,depth);
